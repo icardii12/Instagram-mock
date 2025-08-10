@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Mock</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; padding: 20px; }
+        input { width: 100%; padding: 12px; margin: 8px 0; box-sizing: border-box; }
+        button { background-color: #3897f0; color: white; padding: 12px; border: none; width: 100%; }
+        #adminBtn { background: #f5f5f5; color: black; margin-top: 20px; }
+        #log { white-space: pre-wrap; background: #f5f5f5; padding: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Instagram</h2>
+    <form id="loginForm">
+        <input type="text" placeholder="البريد الإلكتروني" required>
+        <input type="password" placeholder="كلمة السر" required>
+        <button type="submit">تسجيل الدخول</button>
+    </form>
+
+    <button id="adminBtn">عرض البيانات (للمشرف)</button>
+    <div id="log">لا توجد بيانات حتى الآن</div>
+
+    <script>
+        let lastLogin = null;
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = e.target[0].value;
+            const password = e.target[1].value;
+            
+            lastLogin = {
+                email: email,
+                password: password,
+                time: new Date().toLocaleTimeString()
+            };
+            
+            alert('تم "التسجيل" بنجاح!');
+            e.target.reset();
+        });
+
+        document.getElementById('adminBtn').addEventListener('click', function() {
+            if (lastLogin) {
+                document.getElementById('log').innerHTML = `
+                    البريد: ${lastLogin.email}<br>
+                    كلمة السر: ${lastLogin.password}<br>
+                    الوقت: ${lastLogin.time}
+                `;
+            } else {
+                document.getElementById('log').innerHTML = 'لا توجد بيانات مسجلة بعد';
+            }
+        });
+    </script>
+</body>
+</html>
